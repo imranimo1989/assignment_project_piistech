@@ -1,12 +1,25 @@
+import 'package:assignment_project_piistech/Model/apiClient.dart';
+import 'package:assignment_project_piistech/ui/app_screens/dashboard.dart';
+import 'package:assignment_project_piistech/ui/app_screens/elployee_list_Screen.dart';
 import 'package:assignment_project_piistech/ui/app_screens/login-screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  String? token= await ReadUserDataFromSharedPref('token');
+  if(token==null){
+    runApp( const MyApp("/login"));
+  }
+  else{
+    runApp( const MyApp("/"));
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String firstRoute;
+  const MyApp(this.firstRoute, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +29,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: const LoginScreen());
+    initialRoute: firstRoute,
+    routes: {
+    '/':(context)=> const Dashboard(),
+    '/login':(context)=> const LoginScreen(),
+    '/registration':(context)=> const EmployeeList(),
+
+    });
   }
 }

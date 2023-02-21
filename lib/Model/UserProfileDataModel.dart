@@ -12,15 +12,6 @@ class UserProfileData {
     error = json['error'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.result != null) {
-      data['result'] = this.result!.toJson();
-    }
-    data['success'] = this.success;
-    data['error'] = this.error;
-    return data;
-  }
 }
 
 class Result {
@@ -38,16 +29,7 @@ class Result {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this.token;
-    data['expires_in'] = this.expiresIn;
-    data['validTo'] = this.validTo;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    return data;
-  }
+
 }
 
 class User {
@@ -93,20 +75,4 @@ class User {
     joinDate = json['joinDate'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['companyId'] = this.companyId;
-    data['companyName'] = this.companyName;
-    data['profilePicture'] = this.profilePicture;
-    data['userGuidId'] = this.userGuidId;
-    data['userIntId'] = this.userIntId;
-    data['userGroupId'] = this.userGroupId;
-    data['fullName'] = this.fullName;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['designation'] = this.designation;
-    data['regNo'] = this.regNo;
-    data['joinDate'] = this.joinDate;
-    return data;
-  }
 }
