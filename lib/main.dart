@@ -10,14 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-
-      title: 'Flutter Assignment project for Piistech',
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Assignment project for Piistech',
         theme: ThemeData(
-
           primarySwatch: Colors.green,
         ),
-      home: const LoginScreen()
-    );
+        home: const LoginScreen());
   }
 }
