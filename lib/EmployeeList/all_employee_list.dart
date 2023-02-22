@@ -43,7 +43,7 @@ class _AllEmployeeListState extends State<AllEmployeeList> {
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
-                itemCount: getEmployeList.users?.length ?? 0,
+                itemCount: getAllEmployeeData.employeeList?.length ?? 0,
                 itemBuilder: (context, index) {
                   return Card(
                     child: Padding(
@@ -53,18 +53,12 @@ class _AllEmployeeListState extends State<AllEmployeeList> {
                             height: 80,
                             width: 80,
                             child: Image.network(
-                                "${getEmployeList.users?[index].image ?? ""} ")),
+                                "${getAllEmployeeData.employeeList?[index].profilePicture ?? ""} ")),
                         title: Text(
-                            "${getEmployeList.users?[index].firstName ?? ""} "
-                            "${getEmployeList.users?[index].lastName ?? ""} "
-                            "${getEmployeList.users?[index].maidenName ?? ""} "),
+                            getAllEmployeeData.employeeList?[index].fullName ?? "" ),
                         subtitle: Text(
-                            "${getEmployeList.users?[index].company?.name ?? ""} "
-                                "${getEmployeList.users?[index].company?.department ?? ""} "
-
+                            getAllEmployeeData.employeeList?[index].designation ?? ""
                         ),
-                        trailing: Text(
-                            "${getEmployeList.users?[index].bloodGroup ?? ""} "),
                       ),
                     ),
                   );

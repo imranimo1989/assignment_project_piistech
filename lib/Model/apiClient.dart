@@ -61,13 +61,25 @@ Future<String?>ReadUserDataFromSharedPref(key) async {
 }
 
 
- late GetEmployeList getEmployeList;
+ late GetAllEmployeeData getAllEmployeeData;
+
+var Authorization={"Authorization":"Bearer ${ReadUserDataFromSharedPref('token')}", 'accept':'*/*'};
+
 
 Future<void> getUserListFromApi () async{
 
-  var uri = Uri.parse('https://dummyjson.com/users');
-  var response = await http.get(uri);
-  getEmployeList = GetEmployeList.fromJson(jsonDecode(response.body));
+  var url=Uri.parse("${BaseURL}/get-employee-list");
+
+  String? token= await ReadUserDataFromSharedPref('token');
+
+  final response = await http.get(url, headers: {
+  'Content-Type': 'application/json; charset=utf-8',
+    'Accept': '*/*',
+    'Authorization': 'Bearer $token',
+  });
+  getAllEmployeeData = GetAllEmployeeData.fromJson(jsonDecode(response.body));
+  print('Token : ${token}');
+  print(jsonDecode(response.body));
 
 }
 
