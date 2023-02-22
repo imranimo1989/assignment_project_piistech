@@ -22,7 +22,7 @@ class _AllEmployeeListState extends State<AllEmployeeList> {
     setState(() {
       dataLoadingInProgress = true;
     });
-    await getUserListFromApi();
+    await getAllEmployeeListFromApi();
     setState(() {
       dataLoadingInProgress = false;
     });
@@ -36,15 +36,16 @@ class _AllEmployeeListState extends State<AllEmployeeList> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await getUserListFromApi();
+          await getAllEmployeeListFromApi();
         },
         child: dataLoadingInProgress
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
-                itemCount: getAllEmployeeData.employeeList?.length ?? 0,
+                itemCount: getAllEmployeeData.employeeList?.length,
                 itemBuilder: (context, index) {
+                  print(getAllEmployeeData.employeeList?.length);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),

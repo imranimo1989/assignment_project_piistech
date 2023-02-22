@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:assignment_project_piistech/Model/AllEmployeeDataModelJson.dart';
 import 'package:assignment_project_piistech/Model/UserProfileDataModel.dart';
+import 'package:assignment_project_piistech/Model/active_employee_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../utility/toast.dart';
@@ -63,10 +64,7 @@ Future<String?>ReadUserDataFromSharedPref(key) async {
 
  late GetAllEmployeeData getAllEmployeeData;
 
-var Authorization={"Authorization":"Bearer ${ReadUserDataFromSharedPref('token')}", 'accept':'*/*'};
-
-
-Future<void> getUserListFromApi () async{
+Future<void> getAllEmployeeListFromApi () async{
 
   var url=Uri.parse("${BaseURL}/get-employee-list");
 
@@ -78,10 +76,32 @@ Future<void> getUserListFromApi () async{
     'Authorization': 'Bearer $token',
   });
   getAllEmployeeData = GetAllEmployeeData.fromJson(jsonDecode(response.body));
-  print('Token : ${token}');
-  print(jsonDecode(response.body));
+}
+
+
+late GetActiveEmployeeData getActiveEmployeeData;
+
+Future<void> getActiveEmployeeListFromApi () async{
+
+  var url=Uri.parse("${BaseURL}/get-active-employee-list");
+
+  String? token= await ReadUserDataFromSharedPref('token');
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Accept': '*/*',
+    'Authorization': 'Bearer $token',
+  });
+  getActiveEmployeeData = GetActiveEmployeeData.fromJson(jsonDecode(response.body));
 
 }
+
+
+
+
+
+
+
 
 Future<bool> RemoveToken() async {
   final prefs = await SharedPreferences.getInstance();
