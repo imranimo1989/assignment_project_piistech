@@ -21,8 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
 
   Future<void> Login() async {
+
     setState(() {
       isLoading = true;
+
+
     });
     bool response = await LoginRequest(
         userNameTextController.text, passwordTextController.text);

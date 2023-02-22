@@ -1,14 +1,19 @@
-import 'package:assignment_project_piistech/Model/UserProfileDataModel.dart';
 import 'package:flutter/material.dart';
+import '../Model/apiClient.dart';
+
 
 Drawer ProfileDrawer(context, userProfileData) {
   return Drawer(
     child: ListView(
       children: [
         DrawerHeader(
+          decoration: BoxDecoration(
+      color: Colors.green
+    ),
           padding: const EdgeInsets.all(0),
           child: UserAccountsDrawerHeader(
               currentAccountPicture: Container(
+
                 margin: const EdgeInsets.only(bottom: 0.0),
                 width: 20.0,
                 height: 20.0,
@@ -53,17 +58,20 @@ Drawer ProfileDrawer(context, userProfileData) {
             leading: const Icon(Icons.date_range_rounded),
             title: const Text('Joining Date'),
             subtitle: Text('${userProfileData['joinDate']}')),
-        Divider(
-          height: 1,
-          color: Colors.black54,
+        const Divider(
+          height: 2,
+          color: Colors.black26,
         ),
         ListTile(
         iconColor: Colors.red,
+            tileColor: Colors.black12,
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: () {
+            onTap: ()   {
+          RemoveToken();
               Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-            }),
+
+                }),
       ],
     ),
   );

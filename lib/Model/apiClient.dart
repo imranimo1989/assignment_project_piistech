@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:assignment_project_piistech/Model/AllEmployeeDataModelJson.dart';
 import 'package:assignment_project_piistech/Model/UserProfileDataModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -28,18 +29,6 @@ Future<bool> LoginRequest(Username, Password) async{
 
   userProfileData = UserProfileData.fromJson(jsonDecode(response.body));
 
- //  print(userProfileData.result);
- //  print(userProfileData.success);
- //  print(userProfileData.result?.user?.companyName);
- //  print(userProfileData.result!.user!.companyName);
- // print(userProfileData.result?.user?.fullName??"null");
-
-  // var ResultCode=response.statusCode;
-  // var ResultBody=json.decode(response.body);
-
-
-  // print(ResultCode);
-  // print(ResultBody);
 
   if(response.statusCode==200 && userProfileData.success==true){
     successToast("Login Success");
@@ -69,4 +58,21 @@ Future<String?>ReadUserDataFromSharedPref(key) async {
   final prefs = await SharedPreferences.getInstance();
   String? myData = prefs.getString(key);
   return myData;
+}
+
+
+ late GetEmployeList getEmployeList;
+
+Future<void> getUserListFromApi () async{
+
+  var uri = Uri.parse('https://dummyjson.com/users');
+  var response = await http.get(uri);
+  getEmployeList = GetEmployeList.fromJson(jsonDecode(response.body));
+
+}
+
+Future<bool> RemoveToken() async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.remove('token');
+  return true;
 }

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     routes: {
     '/':(context)=> const Dashboard(),
     '/login':(context)=> const LoginScreen(),
-    '/registration':(context)=> const EmployeeList(),
+    '/employeeList':(context)=> const EmployeeList(),
 
     });
   }
