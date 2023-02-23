@@ -1,11 +1,15 @@
-import 'package:assignment_project_piistech/Model/apiClient.dart';
+
 import 'package:assignment_project_piistech/ui/app_screens/dashboard.dart';
 import 'package:assignment_project_piistech/ui/app_screens/elployee_list_Screen.dart';
 import 'package:assignment_project_piistech/ui/app_screens/login-screen.dart';
 import 'package:flutter/material.dart';
 
 
-void main() async{
+void  main(){
+  runApp(const MyApp("/login"));
+}
+
+/*void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   String? token= await ReadUserDataFromSharedPref('token');
@@ -15,7 +19,7 @@ void main() async{
   else{
     runApp( const MyApp("/"));
   }
-}
+}*/
 
 class MyApp extends StatelessWidget {
   final String firstRoute;

@@ -6,72 +6,84 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../utility/toast.dart';
 
+String DefaultprofilePicture =
+    "data:image/jpeg;base64,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";
 
+var BaseURL = "https://sales-api.made-in-bd.net/api/v1";
+var RequestHeader = {"Content-Type": "application/json", 'accept': '*/*'};
 
-String profilePicture="data:image/jpeg;base64,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";
+late GetUserProfileData getUserProfileData;
+Future<bool> LoginRequest(Username, Password) async {
+  var URL = Uri.parse("${BaseURL}/login");
+  var response = await http.post(URL,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'accept': '*/*',
+        "Username": Username,
+        "Password": Password
+      },
+      body: null);
 
+  getUserProfileData = GetUserProfileData.fromJson(jsonDecode(response.body));
 
-var BaseURL="https://sales-api.made-in-bd.net/api/v1";
-var RequestHeader={"Content-Type":"application/json", 'accept':'*/*'};
-
-UserProfileData userProfileData = UserProfileData();
-
-Future<bool> LoginRequest(Username, Password) async{
-
-
-  var URL=Uri.parse("${BaseURL}/login");
-  var response= await http.post(URL,headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-    'accept': '*/*',
-    "Username": Username,
-    "Password": Password
-  },body: null);
-
-
-  userProfileData = UserProfileData.fromJson(jsonDecode(response.body));
-
-
-  if(response.statusCode==200 && userProfileData.success==true){
+  if (response.statusCode == 200 && getUserProfileData.success == true) {
     successToast("Login Success");
-    SaveUserDataToSharePref();
+   await SaveUserDataToSharePref();
+
+
+
     return true;
-  }
-  else{
-    errorToast("${userProfileData.error}");
+  } else {
+    errorToast("${getUserProfileData.error}");
     return false;
   }
 }
 
 Future<void> SaveUserDataToSharePref() async {
   final prefs = await SharedPreferences.getInstance();
-  await prefs.setString('token', userProfileData.result!.token.toString());
-  await prefs.setString('companyName', userProfileData.result?.user?.companyName??"");
-  await prefs.setString('profilePicture', userProfileData.result!.user!.profilePicture.toString());
-  await prefs.setString('fullName', userProfileData.result?.user?.fullName??"");
-  await prefs.setString('designation', userProfileData.result?.user?.designation??"No Data Found");
-  await prefs.setString('phone', userProfileData.result?.user?.phone??"No Phone No Found");
-  await prefs.setString('email', userProfileData.result?.user?.email??"No Email Found");
-  await prefs.setString('regNo', userProfileData.result?.user?.regNo??"");
-  await prefs.setString('joinDate', userProfileData.result?.user?.joinDate??"");
+  await prefs.setString('token', getUserProfileData.result!.token.toString());
+  await prefs.setString(
+      'companyName', getUserProfileData.result?.user?.companyName ?? "");
+  await prefs.setString(
+      'profilePicture', getUserProfileData.result?.user?.profilePicture ?? "");
+  await prefs.setString(
+      'fullName', getUserProfileData.result?.user?.fullName ?? "");
+  await prefs.setString(
+      'designation', getUserProfileData.result?.user?.designation ?? "");
+  await prefs.setString('phone', getUserProfileData.result?.user?.phone ?? "");
+  await prefs.setString('email', getUserProfileData.result?.user?.email ?? "");
+  await prefs.setString('regNo', getUserProfileData.result?.user?.regNo ?? "");
+  await prefs.setString(
+      'joinDate', getUserProfileData.result?.user?.joinDate ?? "");
 }
 
-Future<String?>ReadUserDataFromSharedPref(key) async {
+
+Future<String?> ReadUserDataFromSharedPref(key) async {
   final prefs = await SharedPreferences.getInstance();
   String? myData = prefs.getString(key);
   return myData;
 }
 
 
- late GetAllEmployeeData getAllEmployeeData;
 
-Future<void> getAllEmployeeListFromApi () async{
 
-  var url=Uri.parse("${BaseURL}/get-employee-list");
 
-  String? token= await ReadUserDataFromSharedPref('token');
+
+
+
+
+
+
+
+late GetAllEmployeeData getAllEmployeeData;
+
+Future<void> getAllEmployeeListFromApi() async {
+  var url = Uri.parse("${BaseURL}/get-employee-list");
+
+  String? token = await ReadUserDataFromSharedPref('token');
 
   final response = await http.get(url, headers: {
-  'Content-Type': 'application/json; charset=utf-8',
+    'Content-Type': 'application/json; charset=utf-8',
     'Accept': '*/*',
     'Authorization': 'Bearer $token',
   });
@@ -79,29 +91,22 @@ Future<void> getAllEmployeeListFromApi () async{
 }
 
 
+
 late GetActiveEmployeeData getActiveEmployeeData;
 
-Future<void> getActiveEmployeeListFromApi () async{
+Future<void> getActiveEmployeeListFromApi() async {
+  var url = Uri.parse("${BaseURL}/get-active-employee-list");
 
-  var url=Uri.parse("${BaseURL}/get-active-employee-list");
-
-  String? token= await ReadUserDataFromSharedPref('token');
+  String? token = await ReadUserDataFromSharedPref('token');
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json; charset=utf-8',
     'Accept': '*/*',
     'Authorization': 'Bearer $token',
   });
-  getActiveEmployeeData = GetActiveEmployeeData.fromJson(jsonDecode(response.body));
-
+  getActiveEmployeeData =
+      GetActiveEmployeeData.fromJson(jsonDecode(response.body));
 }
-
-
-
-
-
-
-
 
 Future<bool> RemoveToken() async {
   final prefs = await SharedPreferences.getInstance();

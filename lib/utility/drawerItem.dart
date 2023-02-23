@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+
 import '../Model/apiClient.dart';
 
-
-Drawer ProfileDrawer(context, userProfileData) {
+Drawer ProfileDrawer(context, userData) {
   return Drawer(
     child: ListView(
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(
-      color: Colors.green
-    ),
+          decoration: BoxDecoration(color: Colors.green),
           padding: const EdgeInsets.all(0),
           child: UserAccountsDrawerHeader(
               currentAccountPicture: Container(
-
                 margin: const EdgeInsets.only(bottom: 0.0),
                 width: 20.0,
                 height: 20.0,
@@ -29,11 +26,11 @@ Drawer ProfileDrawer(context, userProfileData) {
               ),
               onDetailsPressed: () {},
               accountName: Text(
-                '${userProfileData['fullName']}',
+                '${userData['fullName']}',
                 style: TextStyle(color: Colors.green),
               ),
               accountEmail: Text(
-                '${userProfileData['designation']}',
+                '${userData['designation']}',
                 style: TextStyle(color: Colors.green),
               ),
               decoration: const BoxDecoration(color: Colors.white)),
@@ -42,36 +39,36 @@ Drawer ProfileDrawer(context, userProfileData) {
             iconColor: Colors.green,
             leading: const Icon(Icons.work),
             title: const Text('Company Name'),
-            subtitle: Text('${userProfileData['companyName']}')),
+            subtitle: Text('${userData['companyName']}')),
         ListTile(
             iconColor: Colors.green,
             leading: const Icon(Icons.phone),
             title: const Text('Phone'),
-            subtitle: Text('${userProfileData['phone']}')),
+            subtitle: Text('${userData['phone']}')),
         ListTile(
             iconColor: Colors.green,
             leading: const Icon(Icons.email),
             title: const Text('Email'),
-            subtitle: Text('${userProfileData['email']}')),
+            subtitle: Text('${userData['email']}')),
         ListTile(
             iconColor: Colors.green,
             leading: const Icon(Icons.date_range_rounded),
             title: const Text('Joining Date'),
-            subtitle: Text('${userProfileData['joinDate']}')),
+            subtitle: Text('${userData['joinDate']}')),
         const Divider(
           height: 2,
           color: Colors.black26,
         ),
         ListTile(
-        iconColor: Colors.red,
+            iconColor: Colors.red,
             tileColor: Colors.black12,
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: ()   {
-          RemoveToken();
-              Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-
-                }),
+            onTap: () {
+              RemoveToken();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/login', (route) => false);
+            }),
       ],
     ),
   );

@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import '../../Model/apiClient.dart';
 import '../../utility/drawerItem.dart';
@@ -11,10 +11,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
-
-  Map<String, String> ProfileData = {
-    "profilePicture": profilePicture,
+  Map<String, String> profileData = {
+    "profilePicture": "",
     "fullName": "",
     "designation": "",
     "companyName": "",
@@ -26,19 +24,25 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    ShowUserProfile();
+    showUserProfile();
+
     super.initState();
   }
 
-  ShowBase64Image(Base64String) {
-    UriData? data = Uri
-        .parse(Base64String)
-        .data;
-    Uint8List MyImage = data!.contentAsBytes();
-    return MyImage;
+
+  getDataLoad() async {
+    setState(() {
+      //dataLoadingInProgress = true;
+    });
+    await getAllEmployeeListFromApi();
+    setState(() {
+     // dataLoadingInProgress = false;
+    });
   }
 
-  ShowUserProfile() async {
+
+
+  void showUserProfile() async {
     String? profilePicture = await ReadUserDataFromSharedPref("profilePicture");
     String? fullName = await ReadUserDataFromSharedPref("fullName");
     String? designation = await ReadUserDataFromSharedPref("designation");
@@ -49,7 +53,7 @@ class _DashboardState extends State<Dashboard> {
     String? regNo = await ReadUserDataFromSharedPref("regNo");
 
     setState(() {
-      ProfileData = {
+      profileData = {
         "profilePicture": "$profilePicture",
         "fullName": "$fullName",
         "designation": "$designation",
@@ -62,16 +66,13 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
       ),
-      drawer: ProfileDrawer(context, ProfileData),
-
+      drawer: ProfileDrawer(context, profileData),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -86,7 +87,6 @@ class _DashboardState extends State<Dashboard> {
                         padding: const EdgeInsets.all(40.0),
                         child: Column(
                           children: [
-
                             const Text(
                               "Welcome!",
                               style: TextStyle(
@@ -96,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                               height: 10,
                             ),
                             Text(
-                              "${ProfileData['fullName']}",
+                              "${profileData['fullName']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 20),
                             ),
@@ -104,8 +104,8 @@ class _DashboardState extends State<Dashboard> {
                               height: 10,
                             ),
                             Text(
-                              "${ProfileData['designation']}  |"
-                                  "  ${ProfileData['companyName']}",
+                              "${profileData['designation']}  |"
+                              "  ${profileData['companyName']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 15),
                             )
@@ -113,21 +113,23 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       )),
                 ),
-                const SizedBox(height: 24,),
+                const SizedBox(
+                  height: 24,
+                ),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 24)),
+                          padding: const EdgeInsets.symmetric(vertical: 24)),
                       onPressed: () {
                         Navigator.pushNamed(context, '/employeeList');
                       },
-                      child: const Text('Show All Employe List',
+                      child: const Text(
+                        'Show All Employee List',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w400),)
-                  ),
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                      )),
                 ),
-
               ],
             ),
           ),
@@ -136,4 +138,3 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
-

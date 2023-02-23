@@ -1,11 +1,11 @@
-class UserProfileData {
+class GetUserProfileData {
   Result? result;
   bool? success;
   String? error;
 
-  UserProfileData({this.result, this.success, this.error});
+  GetUserProfileData({this.result, this.success, this.error});
 
-  UserProfileData.fromJson(Map<String, dynamic> json) {
+  GetUserProfileData.fromJson(Map<String, dynamic> json) {
     result =
     json['result'] != null ? new Result.fromJson(json['result']) : null;
     success = json['success'];

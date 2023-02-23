@@ -1,10 +1,7 @@
-
 import 'package:assignment_project_piistech/Model/apiClient.dart';
 import 'package:assignment_project_piistech/utility/screen_background_widget.dart';
 import 'package:flutter/material.dart';
 import '../style.dart';
-import 'dashboard.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,23 +17,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
-  Future<void> Login() async {
 
+
+
+  Future<void> Login() async {
     setState(() {
       isLoading = true;
-
-
     });
+
     bool response = await LoginRequest(
         userNameTextController.text, passwordTextController.text);
-
     if (response == true) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const Dashboard()),
-          (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     } else {
+
       setState(() {
+
         isLoading = false;
       });
     }
